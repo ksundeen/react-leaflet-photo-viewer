@@ -1,9 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import {
   MapContainer,
   Marker,
   Tooltip,
-  CircleMarker,
+  // CircleMarker,
   Popup,
   TileLayer,
   useMapEvents,
@@ -11,12 +11,7 @@ import {
 import "./App.css";
 import { Icon } from "leaflet";
 // <a href="https://www.flaticon.com/free-icons/car" title="car icons">Car icons created by Freepik - Flaticon</a>
-import tripData from "./data/familytrips";
-
-const carIcon = new Icon({
-  iconUrl: require("../node_modules/leaflet/dist/images/car.png"),
-  iconSize: [40, 40],
-});
+// import tripData from "./data/familytrips";
 
 function LocationMarker() {
   const [position, setPosition] = useState(null);
@@ -26,6 +21,7 @@ function LocationMarker() {
     },
     locationfound(e) {
       setPosition(e.latlng);
+      // Use if wanting to zoom to an area that was clicked
       // map.flyTo(e.latlng, map.getZoom());
     },
   });
@@ -58,8 +54,14 @@ function ClickPhoto(props) {
   );
 }
 
-function App() {
+function App(props) {
   // const [activeTrip, setActiveTrip] = useState(null);
+  const carIcon = new Icon({
+    iconUrl: props.carIcon,
+    // iconUrl: require("../node_modules/leaflet/dist/images/car.png"),
+    iconSize: [40, 40],
+  });
+
   return (
     <MapContainer center={[43.796, -90.073]} zoom={5} scrollWheelZoom={true}>
       <TileLayer
@@ -78,7 +80,7 @@ function App() {
         />
       ))} */}
 
-      {tripData.features.map((location) => (
+      {props.tripData.features.map((location) => (
         <Marker
           key={location.properties.id}
           position={[
