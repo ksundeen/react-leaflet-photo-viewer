@@ -43,6 +43,11 @@
   margin-top: 10px;
 }
 
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+  overflow-y: scroll;
+  max-height: 350px;
+}
+
 .photo {
   width: 75%;
   height: 75%;
